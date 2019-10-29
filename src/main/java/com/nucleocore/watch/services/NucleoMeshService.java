@@ -7,7 +7,6 @@ import javax.annotation.PostConstruct;
 
 @Service
 public class NucleoMeshService {
-  private NucleoMesh mesh;
   public static String getEnv(String env, String default_value){
     String temp = System.getenv(env);
     if(temp!=null){
@@ -17,18 +16,17 @@ public class NucleoMeshService {
   }
   @PostConstruct
   public void init() {
-    this.mesh = new NucleoMesh(
-        getEnv("MESH_NAME", "mcbans"),
-        getEnv("SERVICE_NAME", "watch"),
-        getEnv("ZOOKEEPER", "192.168.1.7:2181"),
-        getEnv("ELASTIC_HOST", "192.168.1.7"),
-        Integer.valueOf(
-            getEnv("ELASTIC_PORT", "9200")
-        ),
-        "com.nucleocore.watch.services.mesh"
-    );
-  }
-  public NucleoMesh getMesh(){
-    return mesh;
+    new Thread(()->
+      new NucleoMesh(
+          getEnv("MESH_NAME", "mcbans"),
+          getEnv("SERVICE_NAME", "watch"),
+          getEnv("ZOOKEEPER", "192.168.1.7:2181"),
+          getEnv("ELASTIC_HOST", "192.168.1.7"),
+          Integer.valueOf(
+              getEnv("ELASTIC_PORT", "9200")
+          ),
+          "com.nucleocore.watch.services.mesh"
+      )
+    ).start();
   }
 }
