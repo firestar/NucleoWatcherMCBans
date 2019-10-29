@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: mcbprod
+  name: watch
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: watch
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      namespace: mcbprod
+      labels:
+        app: watch
+    spec:
+      containers:
+        - name: watch
+          image:  192.168.1.170:30038/nucleo-watch:$BUILD_NUMBER
+          resources:
+            requests:
+              memory: "4Gi"
+              cpu: "500m"
+            limits:
+              memory: "6Gi"
+              cpu: "2000m"
+          env:
+            - name: JAVA_OPTS
+              value: "-Xms2g -Xmx6g"
+              #value: "kafka1.kafka.svc.cluster.local:9092"
+            - name: MESH_NAME
+              value: "mcbprod"
+            - name: KAFKA_BROKER
+              value: "192.168.1.7:9092,192.168.1.6:9092"

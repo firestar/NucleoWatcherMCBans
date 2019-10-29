@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+
+group 'nucleowatch'
+version '1.0'
+
+
+String nucleo = System.getenv("NUCLEO_VERSION") ?: "1.04.7"
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'http://nexus.synload.com/repository/releases/' }
+}
+
+dependencies {
+    compile("com.synload.nucleo:nucleocore:${nucleo}")
+    compile("org.springframework.boot:spring-boot-starter-websocket:2.1.6.RELEASE")
+    compile("org.webjars:webjars-locator-core:0.41")
+    compile("org.webjars:sockjs-client:1.0.2")
+    compile("org.webjars:stomp-websocket:2.3.3")
+    compile("org.webjars:bootstrap:3.3.7")
+    compile("org.webjars:jquery:3.4.1")
+}
+ext.sharedManifest = manifest {
+    attributes("Implementation-Title": "Gradle",
+            "Implementation-Version": version)
+}
+task fooJar(type: Jar) {
+    manifest = project.manifest {
+        from sharedManifest
+    }
+}
+mainClassName = 'com.nucleocore.watch.Watch'
