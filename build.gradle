@@ -8,7 +8,7 @@ group 'nucleowatch'
 version '1.0'
 
 
-String nucleo = System.getenv("NUCLEO_VERSION") ?: "1.06.1"
+String nucleo = System.getenv("NUCLEO_VERSION") ?: "1.07.3"
 
 sourceCompatibility = 1.8
 
@@ -20,7 +20,9 @@ repositories {
 }
 
 dependencies {
-    compile("com.synload.nucleo:nucleocore:${nucleo}")
+    compile("com.synload.nucleo:nucleocore:${nucleo}"){
+        exclude group: 'org.slf4j'
+    }
     compile("org.springframework.boot:spring-boot-starter-websocket:2.1.6.RELEASE")
     compile("org.webjars:webjars-locator-core:0.41")
     compile("org.webjars:sockjs-client:1.0.2")
