@@ -20,7 +20,7 @@ public class IncompleteMessage {
 
     @NucleoEvent("_watch.incomplete")
     public NucleoData timeoutMessage(NucleoData data){
-        this.template.convertAndSend("/topic/incomplete", data);
+        this.template.convertAndSend("/topic/incomplete", data.getObjects().getObjects());
         return data;
     }
 }

@@ -22,7 +22,7 @@ public class CompleteMessage {
 
     @NucleoEvent("_watch.complete")
     public NucleoData completeMessage(NucleoData data){
-        this.template.convertAndSend("/topic/complete", data);
+        this.template.convertAndSend("/topic/complete", data.getObjects().getObjects());
         return data;
     }
 }

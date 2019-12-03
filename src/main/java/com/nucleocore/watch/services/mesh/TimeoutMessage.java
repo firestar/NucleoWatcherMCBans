@@ -21,7 +21,7 @@ public class TimeoutMessage {
 
     @NucleoEvent("_watch.timeout")
     public NucleoData timeoutMessage(NucleoData data){
-        this.template.convertAndSend("/topic/timeout", data);
+        this.template.convertAndSend("/topic/timeout", data.getObjects().getObjects());
         return data;
     }
 }
