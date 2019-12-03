@@ -1,5 +1,6 @@
 package com.nucleocore.watch.services.mesh;
 
+import com.nucleocore.watch.services.NucleoDataNew;
 import com.synload.nucleo.data.NucleoData;
 import com.synload.nucleo.event.NucleoClass;
 import com.synload.nucleo.event.NucleoEvent;
@@ -22,7 +23,9 @@ public class CompleteMessage {
 
     @NucleoEvent("_watch.complete")
     public NucleoData completeMessage(NucleoData data){
-        this.template.convertAndSend("/topic/complete", data.getObjects().getObjects());
+        NucleoData innerData = (NucleoData) data.getObjects().get("root");
+        innerData.latestObjects();
+        this.template.convertAndSend("/topic/complete", new NucleoDataNew(innerData));
         return data;
     }
 }
