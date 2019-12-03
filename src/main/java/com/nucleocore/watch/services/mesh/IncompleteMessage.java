@@ -1,5 +1,6 @@
 package com.nucleocore.watch.services.mesh;
 
+import com.nucleocore.watch.services.NucleoDataNew;
 import com.synload.nucleo.data.NucleoData;
 import com.synload.nucleo.event.NucleoClass;
 import com.synload.nucleo.event.NucleoEvent;
@@ -20,7 +21,9 @@ public class IncompleteMessage {
 
     @NucleoEvent("_watch.incomplete")
     public NucleoData timeoutMessage(NucleoData data){
-        this.template.convertAndSend("/topic/incomplete", data.getObjects().getObjects());
+        NucleoData innerData = (NucleoData) data.getObjects().get("root");
+        innerData.latestObjects();
+        this.template.convertAndSend("/topic/incomplete", new NucleoDataNew(innerData));
         return data;
     }
 }

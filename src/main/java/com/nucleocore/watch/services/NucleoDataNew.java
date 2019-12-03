@@ -8,7 +8,7 @@ import java.util.Map;
 public class NucleoDataNew extends NucleoData {
     public NucleoDataNew(NucleoData data) {
         super(data);
-        data.latestObjects();
+        this.latestObjects();
     }
 
     public Map getObject(){

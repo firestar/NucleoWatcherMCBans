@@ -1,5 +1,6 @@
 package com.nucleocore.watch.services.mesh;
 
+import com.nucleocore.watch.services.NucleoDataNew;
 import com.synload.nucleo.data.NucleoData;
 import com.synload.nucleo.event.NucleoClass;
 import com.synload.nucleo.event.NucleoEvent;
@@ -21,7 +22,9 @@ public class TimeoutMessage {
 
     @NucleoEvent("_watch.timeout")
     public NucleoData timeoutMessage(NucleoData data){
-        this.template.convertAndSend("/topic/timeout", data.getObjects().getObjects());
+        NucleoData innerData = (NucleoData) data.getObjects().get("root");
+        innerData.latestObjects();
+        this.template.convertAndSend("/topic/timeout", new NucleoDataNew(innerData));
         return data;
     }
 }
