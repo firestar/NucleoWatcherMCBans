@@ -24,6 +24,7 @@ public class TimeoutMessage {
     public NucleoData timeoutMessage(NucleoData data){
         NucleoData innerData = (NucleoData) data.getObjects().get("root");
         innerData.latestObjects();
+        innerData.getObjects().getChanges().clear();
         this.template.convertAndSend("/topic/timeout", new NucleoDataNew(innerData));
         return data;
     }

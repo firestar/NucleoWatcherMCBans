@@ -25,6 +25,7 @@ public class CompleteMessage {
     public NucleoData completeMessage(NucleoData data){
         NucleoData innerData = (NucleoData) data.getObjects().get("root");
         innerData.latestObjects();
+        innerData.getObjects().getChanges().clear();
         this.template.convertAndSend("/topic/complete", new NucleoDataNew(innerData));
         return data;
     }
