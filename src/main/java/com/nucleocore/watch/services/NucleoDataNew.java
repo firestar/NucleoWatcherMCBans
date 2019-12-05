@@ -9,6 +9,7 @@ public class NucleoDataNew extends NucleoData {
     public NucleoDataNew(NucleoData data) {
         super(data);
         this.latestObjects();
+        this.getObjects().getChanges().clear();
     }
 
     public Map getObject(){
