@@ -8,7 +8,7 @@ group 'nucleowatch'
 version '1.0'
 
 
-String nucleo = System.getenv("NUCLEO_VERSION") ?: "1.09.1"
+String nucleo = System.getenv("NUCLEO_VERSION") ?: "1.09.2"
 
 sourceCompatibility = 1.8
 
@@ -28,7 +28,7 @@ dependencies {
     compile("org.webjars:sockjs-client:1.0.2")
     compile("org.webjars:stomp-websocket:2.3.3")
     compile("org.webjars:bootstrap:3.3.7")
-    compile('com.mcbans.models:mcbans-models:1.2')
+    compile('com.mcbans.models:mcbans-models:1.5')
     compile("org.webjars:jquery:3.4.1")
 }
 ext.sharedManifest = manifest {
