@@ -19,9 +19,11 @@ spec:
       labels:
         app: watch
     spec:
+      imagePullSecrets:
+      - name: myregistrykey2
       containers:
         - name: watch
-          image:  192.168.1.170:30038/nucleo-watch:$BUILD_NUMBER
+          image:  registry.synload.com/nucleo-watch:$BUILD_NUMBER
           resources:
             requests:
               memory: "1Gi"
@@ -40,4 +42,4 @@ spec:
             - name: MESH_NAME
               value: "mcbprod"
             - name: KAFKA_BROKER
-              value: "192.168.1.7:9092,192.168.1.6:9092"
+              value: "192.168.88.146:9092,192.168.88.147:9092,192.168.88.145:9092"
